@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 
+
 export default function LandingPage() {
   return (
     <>
@@ -88,6 +89,7 @@ export default function LandingPage() {
           </Stack>
         </Stack>
       </Container>
+      
     </>
   );
 }

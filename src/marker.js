@@ -72,11 +72,11 @@ Marker.propTypes = {
 };
 */
 
-function Marker2() {
+function Marker() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <div>
-        <IconButton onClick={onOpen} icon={<FiMapPin/>} variant='transparent'/>
+        <IconButton onClick={onOpen} icon={<FiMapPin/>} variant='transparent' color="red" fontSize="2xl"/>
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
@@ -98,4 +98,4 @@ function Marker2() {
     )
 }
 
-export default Marker2;
+export default Marker;

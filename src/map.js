@@ -10,7 +10,7 @@ export default function SimpleMap() {
       lat: 1.3521,
       lng: 103.8198,
     },
-    zoom: 11,
+    zoom: 12,
   };
 
   const apiURL = process.env.GOOGLE_MAPS_API;
@@ -23,8 +23,10 @@ export default function SimpleMap() {
         bootstrapURLKeys={{ key: process.env.REACT_APP_GOOGLE_MAPS_API}}
         defaultCenter={defaultProps.center}
         defaultZoom={defaultProps.zoom}
+        yesIWantToUseGoogleMapApiInternals
       >
-        <Marker key="1" text="singapore" lat="1.3521" lng="103.8198" />
+        <Marker key="1" text="singapore" lat={1.3521} lng={103.8198} />
+        <Marker key="1" text="singapore" lat={1.37} lng={103.8198} />
       </GoogleMapReact>
     </div>
   );
