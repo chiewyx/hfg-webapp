@@ -12,6 +12,7 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { Link as ReactRouterLink } from "react-router-dom";
 
 export default function SimpleCard() {
   return (
@@ -55,6 +56,8 @@ export default function SimpleCard() {
                 _hover={{
                   bg: "blue.500",
                 }}
+                as={ReactRouterLink}
+                to="/home"
               >
                 Sign in
               </Button>
