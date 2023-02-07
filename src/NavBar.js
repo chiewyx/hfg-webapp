@@ -24,13 +24,16 @@ export default function Nav() {
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
         <Flex h={16} alignItems={"center"} justifyContent={"space-between"}>
-          <Box>Logo</Box>
+          <Box>ReviewLah!</Box>
 
           <Flex alignItems={"center"}>
             <Stack direction={"row"} spacing={7}>
-              <Button> Map </Button>
+              <Button as={ReactRouterLink} to="/home">
+                {" "}
+                Map{" "}
+              </Button>
               <Button> Reviews </Button>
-              
+
               <Button as={ReactRouterLink} to="/writereview">
                 Write reviews
               </Button>
@@ -67,7 +70,9 @@ export default function Nav() {
                   <MenuDivider />
                   <MenuItem>Your Reviews</MenuItem>
                   <MenuItem>Account Settings</MenuItem>
-                  <MenuItem>Logout</MenuItem>
+                  <MenuItem as='a' href='/'>
+                    Logout
+                  </MenuItem>
                 </MenuList>
               </Menu>
             </Stack>
