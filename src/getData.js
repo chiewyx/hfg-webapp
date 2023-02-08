@@ -1,4 +1,4 @@
-import { doc, getDoc } from "firebase/firestore";
+import { doc, getDoc, collection, getDocs } from "firebase/firestore";
 import { db } from "./firebase";
 
 
@@ -21,4 +21,20 @@ const getReview = async (name) => {
   }
 }
 
-export {getReview}
+const readData = async (name) => {
+  const colRef = collection(db, name);
+  try {
+    const docsSnap = await getDocs(colRef);
+    if(docsSnap.docs.length > 0) {
+       docsSnap.forEach(doc => {
+          console.log(doc.data());
+       })
+    }
+} catch (error) {
+    console.log(error);
+}
+}
+
+export {getReview,
+readData
+}
