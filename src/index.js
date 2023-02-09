@@ -27,13 +27,11 @@ const theme = extendTheme({ colors, fonts });
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <StrictMode>
-    <ChakraProvider theme={theme}>
+    <ChakraProvider >
       <BrowserRouter>
         <App />
       </BrowserRouter>
     </ChakraProvider>
-  </StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
