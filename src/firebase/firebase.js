@@ -19,12 +19,7 @@ import { initializeApp } from "firebase/app";
 
 
 const firebaseConfig = {
-  apiKey: "AIzaSyDooS5z3hWo0b-qeVWDThHj-HDvCu6AABc",
-  authDomain: "democpp-a3140.firebaseapp.com",
-  projectId: "democpp-a3140",
-  storageBucket: "democpp-a3140.appspot.com",
-  messagingSenderId: "153608965842",
-  appId: "1:153608965842:web:ab1644b88d8c5c2356270b"
+  //
 };
 
 // Initialize Firebase
