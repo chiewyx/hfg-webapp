@@ -7,6 +7,7 @@ import Profile from "./profile";
 import WriteReview from "./WriteReview"; 
 import { Routes, Route } from "react-router-dom";
 import "./App.css";
+import ReviewPage from "./listReviews";
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/home" exact element={<Home />} />
         <Route path="/profile" exact element={<Profile />} /> 
         <Route path="/writereview" exact element={<WriteReview />} /> 
+        <Route path="/listreviews" exact element={<ReviewPage />} /> 
       </Routes>
     </div>
   );

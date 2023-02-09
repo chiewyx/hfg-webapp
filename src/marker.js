@@ -3,21 +3,21 @@ import React from "react";
 // import styled from "styled-components";
 import { useDisclosure } from "@chakra-ui/react";
 import {
-    Modal,
-    ModalOverlay,
-    ModalContent,
-    ModalHeader,
-    ModalFooter,
-    ModalBody,
-    ModalCloseButton,
-    Button,
-    Text,
-    IconButton
-  } from '@chakra-ui/react'
-  import { FiMapPin } from "react-icons/fi";
-  import { RiMapPin3Fill } from "react-icons/ri";
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  Button,
+  Text,
+  IconButton,
+} from "@chakra-ui/react";
+import { FiMapPin } from "react-icons/fi";
+import { RiMapPin3Fill } from "react-icons/ri";
 
-  /*
+/*
 const Wrapper = styled.div`
   position: absolute;
   top: 50%;
@@ -74,30 +74,42 @@ Marker.propTypes = {
 */
 
 function Marker(props) {
-    const { isOpen, onOpen, onClose } = useDisclosure();
-    return (
-        <div>
-        <IconButton onClick={onOpen} icon={<RiMapPin3Fill />} variant='transparent' color="red" fontSize="2xl"/>
-        <Modal isOpen={isOpen} onClose={onClose}>
-            <ModalOverlay />
-            <ModalContent>
-              <ModalHeader>Modal Title</ModalHeader>
-              <ModalCloseButton />
-              <ModalBody>
-                <Text>Hello {props.description}</Text>
-                <Text>{props.address1}</Text>
-              </ModalBody>
-    
-              <ModalFooter>
-                <Button colorScheme='blue' mr={3} onClick={onClose}>
-                  Close
-                </Button>
-                <Button variant='ghost'>Secondary Action</Button>
-              </ModalFooter>
-            </ModalContent>
-          </Modal>
-          </div>
-    )
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  return (
+    <div>
+      <IconButton
+        onClick={onOpen}
+        icon={<RiMapPin3Fill />}
+        variant="transparent"
+        color="red"
+        fontSize="2xl"
+      />
+      <Modal isOpen={isOpen} onClose={onClose}>
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader>Review</ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Text as="b">Location: </Text>
+            {props.address1} {props.postalcode}
+            <br />
+            <Text as="b">Problem: </Text>
+            {props.fault}
+            <br />
+            <Text as="b">Improvement: </Text>
+            {props.improvement}
+          </ModalBody>
+
+          <ModalFooter>
+            <Button colorScheme="blue" mr={3} onClick={onClose}>
+              Close
+            </Button>
+            
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
+    </div>
+  );
 }
 
 export default Marker;

@@ -32,7 +32,7 @@ export default function Nav() {
                 {" "}
                 Map{" "}
               </Button>
-              <Button> Reviews </Button>
+              <Button as={ReactRouterLink} to="/listreviews"> Reviews </Button>
 
               <Button as={ReactRouterLink} to="/writereview">
                 Write reviews

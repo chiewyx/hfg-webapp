@@ -9,12 +9,36 @@ import {
   Link,
   Button,
   Heading,
-  Text,
   useColorModeValue,
 } from "@chakra-ui/react";
-import { Link as ReactRouterLink } from "react-router-dom";
+
+import { useNavigate } from 'react-router-dom'
+import React, {useState } from 'react';
+import { auth } from "./firebase";
+import {  signInWithEmailAndPassword   } from 'firebase/auth';
 
 export default function SimpleCard() {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const onLogin = (e) => {
+    e.preventDefault();
+    signInWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed in
+        const user = userCredential.user;
+        navigate("/home")
+        console.log(user);
+    })
+    .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorCode, errorMessage)
+    });
+   
+}
+
+
   return (
     <Flex
       minH={"100vh"}
@@ -35,11 +59,23 @@ export default function SimpleCard() {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input type="email" />
+              <Input 
+                name="email"
+                type="email"                                    
+                required                                                                                
+                placeholder="Email address"
+                onChange={(e)=>setEmail(e.target.value)}
+              />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input type="password" />
+              <Input 
+                name="password"
+                type="password"                                    
+                required                                                                                
+                placeholder="Password"
+                onChange={(e)=>setPassword(e.target.value)}
+              />
             </FormControl>
             <Stack spacing={10}>
               <Stack
@@ -56,9 +92,7 @@ export default function SimpleCard() {
                 _hover={{
                   bg: "blue.500",
                 }}
-                as={ReactRouterLink}
-                to="/home"
-              >
+                onClick={(onLogin)}>
                 Sign in
               </Button>
             </Stack>
