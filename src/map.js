@@ -107,16 +107,23 @@ export default function SimpleMap() {
   useEffect(() => {
     const markerArray = [];
     results.forEach((result) => {
-      Geocode.fromAddress(result.postal_code).then(
-        (response) => {
-          const obj = response.results[0].geometry.location;
-          markerArray.push(<Marker description={result.improve} lat={obj.lat} lng={obj.lng} address1={result.address1} />)
-          if (markerArray.length === results.length) {
-            setMarkers(markerArray);
-          }
-          //console.log(obj.lat);
+      Geocode.fromAddress(result.postal_code).then((response) => {
+        const obj = response.results[0].geometry.location;
+        markerArray.push(
+          <Marker
+            improvement={result.improvement}
+            lat={obj.lat}
+            lng={obj.lng}
+            address1={result.address1}
+            postalcode={result.postal_code}
+            fault={result.problem}
+          />
+        );
+        if (markerArray.length === results.length) {
+          setMarkers(markerArray);
         }
-      );
+        //console.log(obj.lat);
+      });
     });
 
     //setMarkers(markerArray);
@@ -131,7 +138,7 @@ export default function SimpleMap() {
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals
       >
-      {markers}
+        {markers}
       </GoogleMapReact>
     </div>
   );
