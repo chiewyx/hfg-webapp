@@ -69,8 +69,10 @@ export default function Nav() {
                   <br />
                   <MenuDivider />
                   <MenuItem>Your Reviews</MenuItem>
-                  <MenuItem>Account Settings</MenuItem>
-                  <MenuItem as='a' href='/'>
+                  <MenuItem as="a" href="/profile">
+                    Account Settings
+                  </MenuItem>
+                  <MenuItem as="a" href="/">
                     Logout
                   </MenuItem>
                 </MenuList>
