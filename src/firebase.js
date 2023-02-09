@@ -8,10 +8,7 @@ import {
 } from "firebase/auth";
 import {
   getFirestore,
-  query,
-  getDocs,
   collection,
-  where,
   addDoc,
  } from "firebase/firestore";
 
@@ -67,6 +64,7 @@ const sendPasswordReset = async (email) => {
 const logout = () => {
   signOut(auth);
 };
+
 
 export {
   auth,
