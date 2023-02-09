@@ -15,6 +15,7 @@ import {
     IconButton
   } from '@chakra-ui/react'
   import { FiMapPin } from "react-icons/fi";
+  import { RiMapPin3Fill } from "react-icons/ri";
 
   /*
 const Wrapper = styled.div`
@@ -72,18 +73,19 @@ Marker.propTypes = {
 };
 */
 
-function Marker() {
+function Marker(props) {
     const { isOpen, onOpen, onClose } = useDisclosure();
     return (
         <div>
-        <IconButton onClick={onOpen} icon={<FiMapPin/>} variant='transparent' color="red" fontSize="2xl"/>
+        <IconButton onClick={onOpen} icon={<RiMapPin3Fill />} variant='transparent' color="red" fontSize="2xl"/>
         <Modal isOpen={isOpen} onClose={onClose}>
             <ModalOverlay />
             <ModalContent>
               <ModalHeader>Modal Title</ModalHeader>
               <ModalCloseButton />
               <ModalBody>
-                <Text>Hello</Text>
+                <Text>Hello {props.description}</Text>
+                <Text>{props.address1}</Text>
               </ModalBody>
     
               <ModalFooter>
