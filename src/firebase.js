@@ -5,7 +5,7 @@ import {
   createUserWithEmailAndPassword,
   sendPasswordResetEmail,
   signOut,
-}from "firebase/auth";
+} from "firebase/auth";
 import {
   getFirestore,
   query,
@@ -16,7 +16,12 @@ import {
  } from "firebase/firestore";
 
 const firebaseConfig = {
-  // repalce with apiKey
+  apiKey: process.env.REACT_APP_FIREBASE_API,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTHDOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDERID,
+  appId: process.env.REACT_APP_FIREBASE_APPID
 };
 
 const app = initializeApp(firebaseConfig);

@@ -3,6 +3,8 @@ import GoogleMapReact from "google-map-react";
 import Marker from "./marker";
 import Geocode from "react-geocode";
 import { useState, useEffect } from "react";
+import { doc, getDocs, collection } from "firebase/firestore";
+import { db } from "./firebase";
 
 // const AnyReactComponent = ({ text }) => <div>{text}</div>;
 
@@ -44,18 +46,38 @@ export default function SimpleMap() {
     zoom: 12,
   };
 
-  const [results, setResults] = useState([]);
-
   Geocode.setApiKey(process.env.REACT_APP_GOOGLE_GEOCODE_API);
 
-  async function getResult() {
-    
-  }
+  const [results, setResults] = useState([]);
+  const [markers, setMarkers] = useState([]);
+
+  //name is either S3Mur4yOTYsjtzOew0Ls or rc4
+  //docSnap.data() is the data
+
+  const getReview = async () => {
+    const colRef = collection(db, "reviews");
+    try {
+      const docsSnap = await getDocs(colRef);
+      if (docsSnap.docs.length > 0) {
+        const reviews = [];
+        docsSnap.forEach((doc) => {
+          reviews.push(doc.data());
+          console.log(doc.data());
+        });
+        setResults(reviews);
+      } else {
+        console.log("Document does not exist");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    getResult();
+    getReview();
   }, []);
 
+  /*
   Geocode.fromAddress("49 Hume Ave Singapore").then(
     (response) => {
       const { lat, lng } = response.results[0].geometry.location;
@@ -65,6 +87,40 @@ export default function SimpleMap() {
       console.error(error);
     }
   );
+  
+  useEffect(() => {
+    const promises = results.map((result) =>
+      Geocode.fromAddress(result.postal_code)
+    );
+
+    Promise.all(promises).then((responses) => {
+      const markerArray = responses.map((response) => {
+        const { lat, lng } = response.results[0].geometry.location;
+        return <Marker lat={lat} lng={lng} />;
+      });
+
+      setMarkers(markerArray);
+    });
+  }, [results]);
+  */
+
+  useEffect(() => {
+    const markerArray = [];
+    results.forEach((result) => {
+      Geocode.fromAddress(result.postal_code).then(
+        (response) => {
+          const obj = response.results[0].geometry.location;
+          markerArray.push(<Marker description={result.improve} lat={obj.lat} lng={obj.lng} address1={result.address1} />)
+          if (markerArray.length === results.length) {
+            setMarkers(markerArray);
+          }
+          //console.log(obj.lat);
+        }
+      );
+    });
+
+    //setMarkers(markerArray);
+  }, [results]);
 
   return (
     // Important! Always set the container height explicitly
@@ -75,8 +131,7 @@ export default function SimpleMap() {
         defaultZoom={defaultProps.zoom}
         yesIWantToUseGoogleMapApiInternals
       >
-        <Marker key="1" text="singapore" lat={1.3521} lng={103.8198} />
-        <Marker key="1" text="singapore" lat={1.37} lng={103.8198} />
+      {markers}
       </GoogleMapReact>
     </div>
   );
