@@ -38,7 +38,7 @@ export default function ReviewWithLike(props) {
         <Box h={"200px"} borderBottom={"1px"} borderColor="black">
           <Img
             src={
-              "https://images.unsplash.com/photo-1542435503-956c469947f6?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80"
+              props.image
             }
             roundedTop={"sm"}
             objectFit="cover"
