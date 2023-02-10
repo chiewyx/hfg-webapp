@@ -42,11 +42,11 @@ export default function WriteReview() {
         improvement: improvement,
       });
 
-      setRegion(""); 
-      setAddress1(""); 
+      setRegion("");
+      setAddress1("");
       setPostalCode("");
       setProblem("");
-      setImprovement(""); 
+      setImprovement("");
 
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -77,7 +77,7 @@ export default function WriteReview() {
           <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
             Review Form
           </Heading>
-          <FormControl as={GridItem} colSpan={[6, 3]}>
+          <FormControl isRequired as={GridItem} colSpan={[6, 3]}>
             <FormLabel
               htmlFor="region"
               fontSize="sm"
@@ -102,12 +102,13 @@ export default function WriteReview() {
             >
               <option>East</option>
               <option>West</option>
+              <option>Central</option>
               <option>North</option>
               <option>South</option>
             </Select>
           </FormControl>
 
-          <FormControl as={GridItem} colSpan={6}>
+          <FormControl isRequired as={GridItem} colSpan={6}>
             <FormLabel
               htmlFor="address1"
               fontSize="sm"
@@ -134,7 +135,7 @@ export default function WriteReview() {
             />
           </FormControl>
 
-          <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+          <FormControl isRequired as={GridItem} colSpan={[6, 3, null, 2]}>
             <FormLabel
               htmlFor="postal_code"
               fontSize="sm"
@@ -153,6 +154,7 @@ export default function WriteReview() {
               id="postal_code"
               autoComplete="postal_code"
               maxLength={6}
+              minLength={6}
               focusBorderColor="brand.400"
               shadow="sm"
               size="sm"
@@ -163,7 +165,7 @@ export default function WriteReview() {
             />
           </FormControl>
 
-          <FormControl id="wrong" mt={1}>
+          <FormControl>
             <FormLabel
               fontSize="sm"
               fontWeight="md"
@@ -210,27 +212,26 @@ export default function WriteReview() {
               value={improvement || ""}
             />
           </FormControl>
-        {selectedImage && (
-          <div>
-            <Image
-              alt="not fount"
-              width={"250px"}
-              src={URL.createObjectURL(selectedImage)}
-            />
-            <Button onClick={() => setSelectedImage(null)}> Remove </Button>
-          </div>
-        )}
 
-        <Input
-          my={10}
-          type="file"
-          name="myImage"
-          onChange={(event) => {
-            console.log(event.target.files[0]);
-            setSelectedImage(event.target.files[0]);
-          }}
-        />
-
+          {selectedImage && (
+            <div>
+              <Image
+                alt="not fount"
+                width={"250px"}
+                src={URL.createObjectURL(selectedImage)}
+              />
+              <Button onClick={() => setSelectedImage("")}> Remove </Button>
+            </div>
+          )}
+          <Input
+            my={10}
+            type="file"
+            name="myImage"
+            onChange={(event) => {
+              console.log(event.target.files[0]);
+              setSelectedImage(event.target.files[0]);
+            }}
+          />
           <Button w="7rem" colorScheme="red" variant="solid" type="submit">
             Submit
           </Button>

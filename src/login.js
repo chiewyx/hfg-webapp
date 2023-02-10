@@ -12,32 +12,30 @@ import {
   useColorModeValue,
 } from "@chakra-ui/react";
 
-import { useNavigate } from 'react-router-dom'
-import React, {useState } from 'react';
+import { useNavigate } from "react-router-dom";
+import React, { useState } from "react";
 import { auth } from "./firebase";
-import {  signInWithEmailAndPassword   } from 'firebase/auth';
+import { signInWithEmailAndPassword } from "firebase/auth";
 
 export default function SimpleCard() {
   const navigate = useNavigate();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
   const onLogin = (e) => {
     e.preventDefault();
     signInWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
+      .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
-        navigate("/home")
+        navigate("/home");
         console.log(user);
-    })
-    .catch((error) => {
+      })
+      .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
-        console.log(errorCode, errorMessage)
-    });
-   
-}
-
+        console.log(errorCode, errorMessage);
+      });
+  };
 
   return (
     <Flex
@@ -59,22 +57,22 @@ export default function SimpleCard() {
           <Stack spacing={4}>
             <FormControl id="email">
               <FormLabel>Email address</FormLabel>
-              <Input 
+              <Input
                 name="email"
-                type="email"                                    
-                required                                                                                
+                type="email"
+                required
                 placeholder="Email address"
-                onChange={(e)=>setEmail(e.target.value)}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </FormControl>
             <FormControl id="password">
               <FormLabel>Password</FormLabel>
-              <Input 
+              <Input
                 name="password"
-                type="password"                                    
-                required                                                                                
+                type="password"
+                required
                 placeholder="Password"
-                onChange={(e)=>setPassword(e.target.value)}
+                onChange={(e) => setPassword(e.target.value)}
               />
             </FormControl>
             <Stack spacing={10}>
@@ -92,7 +90,8 @@ export default function SimpleCard() {
                 _hover={{
                   bg: "blue.500",
                 }}
-                onClick={(onLogin)}>
+                onClick={onLogin}
+              >
                 Sign in
               </Button>
             </Stack>

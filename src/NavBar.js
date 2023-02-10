@@ -16,10 +16,16 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
 
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [username, setUsername] = useState("");
+
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -32,7 +38,10 @@ export default function Nav() {
                 {" "}
                 Map{" "}
               </Button>
-              <Button as={ReactRouterLink} to="/listreviews"> Reviews </Button>
+              <Button as={ReactRouterLink} to="/listreviews">
+                {" "}
+                Reviews{" "}
+              </Button>
 
               <Button as={ReactRouterLink} to="/writereview">
                 Write reviews
@@ -64,11 +73,11 @@ export default function Nav() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{username}</p>
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Reviews</MenuItem>
+                  <MenuItem as="a" href="/yourreviews">Your Reviews</MenuItem>
                   <MenuItem as="a" href="/profile">
                     Account Settings
                   </MenuItem>
