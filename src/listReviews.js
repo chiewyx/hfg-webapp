@@ -10,7 +10,7 @@ export default function ReviewPage() {
   const [results, setResults] = useState([]);
   const [allImages, setImages] = useState([]);
   const storage = getStorage();
-  const storageRef = ref(storage, 'gs://democpp-a3140.appspot.com/images');
+  const storageRef = ref(storage, "gs://democpp-a3140.appspot.com/images");
 
   const getReview = async () => {
     const colRef = collection(db, "reviews");
@@ -36,13 +36,12 @@ export default function ReviewPage() {
   }, []);
 
   const getImage = async () => {
-    
-      const res = await listAll(storageRef)
+    const res = await listAll(storageRef);
 
-  const promises = res.items.map((itemRef) => getDownloadURL(itemRef))
-  const data = await Promise.all(promises)
-  setImages(data);
-  console.log(data)
+    const promises = res.items.map((itemRef) => getDownloadURL(itemRef));
+    const data = await Promise.all(promises);
+    setImages(data);
+    console.log(data);
   };
 
   useEffect(() => {
