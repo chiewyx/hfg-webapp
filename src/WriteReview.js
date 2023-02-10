@@ -10,7 +10,7 @@ import {
   Input,
   Select,
   Textarea,
-  Spacer,
+  Image,
 } from "@chakra-ui/react";
 
 import { collection, addDoc } from "firebase/firestore";
@@ -27,6 +27,7 @@ export default function WriteReview() {
   const [postal_code, setPostalCode] = useState("");
   const [problem, setProblem] = useState("");
   const [improvement, setImprovement] = useState("");
+  const [selectedImage, setSelectedImage] = useState(null);
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -209,7 +210,28 @@ export default function WriteReview() {
               value={improvement || ""}
             />
           </FormControl>
-          <Button text-align="right" w="7rem" colorScheme="red" variant="solid" type="submit">
+        {selectedImage && (
+          <div>
+            <Image
+              alt="not fount"
+              width={"250px"}
+              src={URL.createObjectURL(selectedImage)}
+            />
+            <Button onClick={() => setSelectedImage(null)}> Remove </Button>
+          </div>
+        )}
+
+        <Input
+          my={10}
+          type="file"
+          name="myImage"
+          onChange={(event) => {
+            console.log(event.target.files[0]);
+            setSelectedImage(event.target.files[0]);
+          }}
+        />
+
+          <Button w="7rem" colorScheme="red" variant="solid" type="submit">
             Submit
           </Button>
         </form>
