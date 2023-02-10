@@ -14,7 +14,6 @@
     "firebase": "^9.17.1",
     "framer-motion": "^9.0.2",
     "google-map-react": "^2.2.0",
-    "google-maps-react": "^2.0.6",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-geocode": "^0.2.3",
