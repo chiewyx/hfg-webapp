@@ -1,5 +1,7 @@
 import React, { useState } from "react";
 import NavBar from "./NavBar";
+import { storage } from "./firebase";
+import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import {
   Box,
   Button,
@@ -28,6 +30,42 @@ export default function WriteReview() {
   const [problem, setProblem] = useState("");
   const [improvement, setImprovement] = useState("");
   const [selectedImage, setSelectedImage] = useState(null);
+
+  const [progress, setProgress] = useState(33.33);
+  const [file, setFile] = useState("");
+  const [percent, setPercent] = useState(0);
+    
+  function handleChange(event) {
+        setFile(event.target.files[0]);
+  }
+    
+  const handleUpload = () => {
+    if (!file) {
+        alert("Please upload an image first!");
+        }
+    const storageRef = ref(storage, `/${postal_code} / ${problem}`);
+        
+    const uploadTask = uploadBytesResumable(storageRef, file);
+        
+    uploadTask.on(
+        "state_changed",
+        (snapshot) => {
+            const percent = Math.round(
+                (snapshot.bytesTransferred / snapshot.totalBytes) * 100
+                );
+          
+    // update progress
+            setPercent(percent);
+            },
+        (err) => console.log(err),
+        () => {
+            // download url
+            getDownloadURL(uploadTask.snapshot.ref).then((url) => {
+                console.log(url);
+                });
+            }
+        );
+    };
 
   async function handleSubmit(e) {
     e.preventDefault();
@@ -212,27 +250,29 @@ export default function WriteReview() {
               value={improvement || ""}
             />
           </FormControl>
+        {selectedImage && (
+          <div>
+            <Image
+              alt="not found"
+              width={"250px"}
+              src={URL.createObjectURL(selectedImage)}
+            />
+            <Button onClick={() => setSelectedImage(null)}> Remove </Button>
+          </div>
+        )}
 
-          {selectedImage && (
-            <div>
-              <Image
-                alt="not fount"
-                width={"250px"}
-                src={URL.createObjectURL(selectedImage)}
-              />
-              <Button onClick={() => setSelectedImage("")}> Remove </Button>
-            </div>
-          )}
-          <Input
-            my={10}
-            type="file"
-            name="myImage"
-            onChange={(event) => {
-              console.log(event.target.files[0]);
-              setSelectedImage(event.target.files[0]);
-            }}
-          />
-          <Button w="7rem" colorScheme="red" variant="solid" type="submit">
+        <Input
+          my={10}
+          type="file"
+          name="myImage"
+          onChange={handleChange} accept="/image/*"
+          // onChange={(event) => {
+          //   console.log(event.target.files[0]);
+          //   setSelectedImage(event.target.files[0]);
+          // }}
+        />
+
+          <Button w="7rem" colorScheme="red" variant="solid" type="submit" onClick ={handleUpload}>
             Submit
           </Button>
         </form>
