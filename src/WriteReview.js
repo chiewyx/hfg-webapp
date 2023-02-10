@@ -77,7 +77,7 @@ export default function WriteReview() {
           <Heading w="100%" textAlign={"center"} fontWeight="normal" mb="2%">
             Review Form
           </Heading>
-          <FormControl as={GridItem} colSpan={[6, 3]}>
+          <FormControl isRequired as={GridItem} colSpan={[6, 3]}>
             <FormLabel
               htmlFor="region"
               fontSize="sm"
@@ -102,12 +102,13 @@ export default function WriteReview() {
             >
               <option>East</option>
               <option>West</option>
+              <option>Central</option>
               <option>North</option>
               <option>South</option>
             </Select>
           </FormControl>
 
-          <FormControl as={GridItem} colSpan={6}>
+          <FormControl isRequired as={GridItem} colSpan={6}>
             <FormLabel
               htmlFor="address1"
               fontSize="sm"
@@ -134,7 +135,7 @@ export default function WriteReview() {
             />
           </FormControl>
 
-          <FormControl as={GridItem} colSpan={[6, 3, null, 2]}>
+          <FormControl isRequired as={GridItem} colSpan={[6, 3, null, 2]}>
             <FormLabel
               htmlFor="postal_code"
               fontSize="sm"
@@ -153,6 +154,7 @@ export default function WriteReview() {
               id="postal_code"
               autoComplete="postal_code"
               maxLength={6}
+              minLength={6}
               focusBorderColor="brand.400"
               shadow="sm"
               size="sm"
@@ -210,6 +212,7 @@ export default function WriteReview() {
               value={improvement || ""}
             />
           </FormControl>
+       
         {selectedImage && (
           <div>
             <Image
@@ -217,7 +220,7 @@ export default function WriteReview() {
               width={"250px"}
               src={URL.createObjectURL(selectedImage)}
             />
-            <Button onClick={() => setSelectedImage(null)}> Remove </Button>
+            <Button onClick={() => setSelectedImage("")}> Remove </Button>
           </div>
         )}
 

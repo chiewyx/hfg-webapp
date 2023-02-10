@@ -25,23 +25,6 @@ export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [username, setUsername] = useState("");
-  const [uid, setUID] = useState("");
-
-  const auth = getAuth();
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      // User logged in already or has just logged in.
-      setUID(user.uid);
-      getAuth()
-        .getUser(uid)
-        .then((userRecord) => {
-          // See the UserRecord reference doc for the contents of userRecord.
-          console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
-        });
-    } else {
-      // User not logged in or has just logged out.
-    }
-  });
 
   return (
     <>
@@ -94,7 +77,7 @@ export default function Nav() {
                   </Center>
                   <br />
                   <MenuDivider />
-                  <MenuItem>Your Reviews</MenuItem>
+                  <MenuItem as="a" href="/yourreviews">Your Reviews</MenuItem>
                   <MenuItem as="a" href="/profile">
                     Account Settings
                   </MenuItem>
