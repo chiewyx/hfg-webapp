@@ -10,6 +10,7 @@ import {
   Input,
   Select,
   Textarea,
+  Spacer,
 } from "@chakra-ui/react";
 
 import { collection, addDoc } from "firebase/firestore";
@@ -40,11 +41,11 @@ export default function WriteReview() {
         improvement: improvement,
       });
 
-      setRegion(""); 
-      setAddress1(""); 
+      setRegion("");
+      setAddress1("");
       setPostalCode("");
       setProblem("");
-      setImprovement(""); 
+      setImprovement("");
 
       console.log("Document written with ID: ", docRef.id);
     } catch (e) {
@@ -161,7 +162,7 @@ export default function WriteReview() {
             />
           </FormControl>
 
-          <FormControl id="wrong" mt={1}>
+          <FormControl>
             <FormLabel
               fontSize="sm"
               fontWeight="md"
@@ -208,8 +209,7 @@ export default function WriteReview() {
               value={improvement || ""}
             />
           </FormControl>
-
-          <Button w="7rem" colorScheme="red" variant="solid" type="submit">
+          <Button text-align="right" w="7rem" colorScheme="red" variant="solid" type="submit">
             Submit
           </Button>
         </form>

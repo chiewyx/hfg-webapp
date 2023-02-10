@@ -16,10 +16,33 @@ import {
 } from "@chakra-ui/react";
 import { Link as ReactRouterLink } from "react-router-dom";
 import { MoonIcon, SunIcon } from "@chakra-ui/icons";
+import { doc, getDoc } from "firebase/firestore";
+import { db } from "./firebase";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { useState } from "react";
 
 export default function Nav() {
   const { colorMode, toggleColorMode } = useColorMode();
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const [username, setUsername] = useState("");
+  const [uid, setUID] = useState("");
+
+  const auth = getAuth();
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User logged in already or has just logged in.
+      setUID(user.uid);
+      getAuth()
+        .getUser(uid)
+        .then((userRecord) => {
+          // See the UserRecord reference doc for the contents of userRecord.
+          console.log(`Successfully fetched user data: ${userRecord.toJSON()}`);
+        });
+    } else {
+      // User not logged in or has just logged out.
+    }
+  });
+
   return (
     <>
       <Box bg={useColorModeValue("gray.100", "gray.900")} px={4}>
@@ -32,7 +55,10 @@ export default function Nav() {
                 {" "}
                 Map{" "}
               </Button>
-              <Button as={ReactRouterLink} to="/listreviews"> Reviews </Button>
+              <Button as={ReactRouterLink} to="/listreviews">
+                {" "}
+                Reviews{" "}
+              </Button>
 
               <Button as={ReactRouterLink} to="/writereview">
                 Write reviews
@@ -64,7 +90,7 @@ export default function Nav() {
                   </Center>
                   <br />
                   <Center>
-                    <p>Username</p>
+                    <p>{username}</p>
                   </Center>
                   <br />
                   <MenuDivider />
