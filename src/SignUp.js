@@ -17,9 +17,11 @@ import {
   import { useState} from 'react';
   import { ViewIcon, ViewOffIcon } from '@chakra-ui/icons';
   import { registerWithEmailAndPassword} from './firebase';
+  import { useNavigate } from "react-router-dom";
   
   
   export default function Signup() {
+    const navigate = useNavigate();
     const [showPassword, setShowPassword] = useState(false);
     const [firstName, setFirstName] = useState('');
     const [lastName, setLastName] = useState('');
@@ -29,9 +31,15 @@ import {
 
     
     const register = () => {
-      if (!firstName) alert("Please enter name");
-      registerWithEmailAndPassword(firstName, lastName, email, password);
+      if (!firstName) {
+        alert("Please enter name");
+      }
+    
+      registerWithEmailAndPassword(firstName, lastName, email, password)
     };
+    
+    
+    
     return (
       <Flex
         minH={'100vh'}

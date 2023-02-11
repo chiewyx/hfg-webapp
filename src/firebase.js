@@ -46,7 +46,10 @@ const registerWithEmailAndPassword = async (firstName, lastName, email, password
       lastName,
       authProvider: "local",
       email,
-    });
+    })
+    if (user) {
+      alert("Success!")
+    }
   } catch (err) {
     console.error(err);
     alert(err.message);
